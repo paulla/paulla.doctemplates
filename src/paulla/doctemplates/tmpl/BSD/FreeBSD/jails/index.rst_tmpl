@@ -1,0 +1,44 @@
+#if $has_jails:
+===================
+$project jails
+===================
+
+.. index:: 
+    pair: $project; jails
+
+
+
+Jails
+------
+
+jails list
++++++++++++++
+
+.. code-block:: bash
+ 
+  # jls 
+  # complete me
+
+jails order
++++++++++++++
+
+.. code-block:: bash
+ 
+  # cd /usr/local/etc/ezjail
+  # ls | xargs rcorder
+ 
+#end if
+Crontab
+----------
+
+.. todo:: complete me
+
+.. code-block:: bash
+ 
+ crontab -l
+
+Backups
+----------
+
+.. todo:: complete me
+

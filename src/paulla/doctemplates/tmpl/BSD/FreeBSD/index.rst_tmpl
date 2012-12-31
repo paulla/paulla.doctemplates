@@ -1,0 +1,130 @@
+===================
+$project
+===================
+
+.. index:: 
+#if $group
+    pair: $group; $project
+#end if
+    pair: $os; $project
+
+
+.. image:: files/_static/logo.png
+     :align: center
+
+
+$desc
+
+
+
+.. table:: $project
+    :widths: 2 1
+    :column-alignment: left center
+    :column-wrapping: true false 
+    :column-dividers: none single single
+
+#if $group
+    =========== ===========
+    $os         $group
+    =========== ===========
+    $os         $group
+    =========== ===========
+#end if
+
+.. code-block:: bash
+ 
+ uname -a
+
+
+Disque
+---------
+
+Raid
++++++++
+
+.. todo:: describe me!
+
+Partitionnement
++++++++++++++++++
+
+.. code-block:: bash
+ 
+ cat /etc/fstab 
+
+.. code-block:: bash
+ 
+ df -h
+ putm here
+
+Network
+----------
+
+
+interfaces
+++++++++++++
+
++ **eth0 217.119.180.86**
+ 
+ + eth0:1 217.119.180.147
+ 
++ eth1 217.119.180.61
+
+**/etc/rc.conf**
+
+.. literalinclude:: files/etc/rc.conf
+   :language: bash
+
+
+D.N.S
+++++++
+
+**/etc/resolv.conf**
+
+.. literalinclude:: files/etc/resolv.conf
+   :language: bash
+
+**/etc/hosts**
+
+.. literalinclude:: files/etc/hosts
+   :language: bash
+
+Services
+------------
+
+#if $runs_sshd:
+ssh
+++++++
+
+**etc/ssh/sshd_config**
+
+.. literalinclude:: files/etc/ssh/sshd_config
+   :language: bash                       
+
+#end if
+
+#if $has_jails:
+
+Jails
+------
+
+.. toctree::
+   :maxdepth: 2
+   
+   jails/index.rst
+   
+#end if
+
+Crontab
+----------
+
+.. todo:: complete me
+
+.. code-block:: bash
+ 
+ crontab -l
+
+Backups
+----------
+
+.. todo:: complete me
+
