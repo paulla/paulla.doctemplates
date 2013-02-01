@@ -6,6 +6,9 @@ $project
 #if $group
     pair: $group; $project
 #end if
+#if $location
+    pair: $location; $project
+#end if
     pair: $os; $project
 
 

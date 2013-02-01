@@ -48,6 +48,8 @@ class HostBaseTemplate(Template):
         """."""
         if not 'group' in vars.keys():
             vars['group'] = self.defaults['group']
+        if not 'location' in vars.keys():
+            vars['location'] = self.defaults['location']
         self.boolify(vars)
 
     def post(self, command, output_dir, vars):
