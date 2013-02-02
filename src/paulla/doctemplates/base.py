@@ -32,6 +32,8 @@ class HostBaseTemplate(Template):
     vars = Template.vars + \
            [var('desc', 'Host description', default=''),
             var('domain', 'Domaine', default=defaults['domain']),
+            var('group', 'group', default=defaults['group']),
+            var('location', 'location', default=defaults['location']),
             var('inet0', 'Ipv4 1', default=''),
             var('inet1', 'Ipv4 2', default=''),
            ]
