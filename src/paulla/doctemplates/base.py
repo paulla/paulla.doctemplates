@@ -4,6 +4,7 @@ import ConfigParser
 import os.path
 from shutil import rmtree
 from paste.script.templates import Template, var
+from IPy import IP
 
 _dir, _f = os.path.split(os.path.abspath(__file__))
 DEFAULT_CONFIG_FILE = os.path.join(_dir, 'etc', 'defaults.cfg')
@@ -34,8 +35,8 @@ class HostBaseTemplate(Template):
             var('domain', 'Domaine', default=defaults['domain']),
             var('group', 'group', default=defaults['group']),
             var('location', 'location', default=defaults['location']),
-            var('inet0', 'Ipv4 1', default=''),
-            var('inet1', 'Ipv4 2', default=''),
+            var('ip4s', 'inet-ip1, inet-ip2, ...', default=""),
+            var('ip6s', 'inet6-ip1, inet6-ip2, ...', default=""),
            ]
 
     def boolify(self, vars):
@@ -46,6 +47,16 @@ class HostBaseTemplate(Template):
                 if vars[key].lower() in unset:
                     vars[key] = False
 
+    def check_ip(self, vars):
+        """."""
+        if vars['ip4s']:
+            vars['ip4s'] = [str(IP(net.strip())) for net
+                            in vars['ip4s'].split(',')]
+
+        if vars['ip6s']:
+            vars['ip6s'] = [str(IP(net.strip())) for net
+                            in vars['ip6s'].split(',')]
+
     def pre(self, command, output_dir, vars):
         """."""
         if not 'group' in vars.keys():
@@ -53,6 +64,7 @@ class HostBaseTemplate(Template):
         if not 'location' in vars.keys():
             vars['location'] = self.defaults['location']
         self.boolify(vars)
+        self.check_ip(vars)
 
     def post(self, command, output_dir, vars):
         if not vars['runs_sshd']:

@@ -35,9 +35,9 @@ class FreeBsdTemplate(HostBsdBaseTemplate):
 
     def pre(self, command, output_dir, vars):
         """."""
+        HostBsdBaseTemplate.pre(self, command, output_dir, vars)
         if not 'os' in vars.keys():
             vars['os'] = self.defaults['os']
-        self.boolify(vars)
 
     def post(self, command, output_dir, vars):
         HostBsdBaseTemplate.post(self, command, output_dir, vars)
@@ -60,9 +60,9 @@ class DebianTemplate(HostDebianLikeBaseTemplate):
 
     def pre(self, command, output_dir, vars):
         """."""
+        HostDebianLikeBaseTemplate.pre(self, command, output_dir, vars)
         if not 'os' in vars.keys():
             vars['os'] = self.defaults['os']
-        self.boolify(vars)
 
 
 class UbuntuTemplate(HostDebianLikeBaseTemplate):
@@ -78,9 +78,9 @@ class UbuntuTemplate(HostDebianLikeBaseTemplate):
 
     def pre(self, command, output_dir, vars):
         """."""
+        HostDebianLikeBaseTemplate.pre(self, command, output_dir, vars)
         if not 'os' in vars.keys():
             vars['os'] = self.defaults['os']
-        self.boolify(vars)
 
 
 class OpenBsdTemplate(HostBsdBaseTemplate):
@@ -96,9 +96,9 @@ class OpenBsdTemplate(HostBsdBaseTemplate):
 
     def pre(self, command, output_dir, vars):
         """."""
+        HostBsdBaseTemplate.pre(self, command, output_dir, vars)
         if not 'os' in vars.keys():
             vars['os'] = self.defaults['os']
-        self.boolify(vars)
 
 
 class NetBsdTemplate(HostBsdBaseTemplate):
@@ -114,8 +114,8 @@ class NetBsdTemplate(HostBsdBaseTemplate):
 
     def pre(self, command, output_dir, vars):
         """."""
+        HostBsdBaseTemplate.pre(self, command, output_dir, vars)
         if not 'os' in vars.keys():
             vars['os'] = self.defaults['os']
-        self.boolify(vars)
 
 # vim:set et sts=4 ts=4 tw=80:

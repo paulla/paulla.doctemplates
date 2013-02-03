@@ -11,7 +11,6 @@ $project
     pair: $location; $project
 #end if
     pair: $os; $project
-
 .. image:: files/_static/logo.png
      :align: center
 
@@ -57,6 +56,18 @@ Partitionnement
 Network
 ----------
 
+#if $ip4s
+    #for $ip in $ip4s
+    :index:`$ip <pair: $ip; $project>`
+
+    #end for
+#end if
+#if $ip6s
+    #for $ip in $ip6s
+    :index:`$ip <pair: $ip; $project>`
+
+    #end for
+#end if
 
 interfaces
 ++++++++++++
