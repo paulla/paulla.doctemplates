@@ -1,6 +1,6 @@
 #if $has_vm:
 ===================
-$project jails
+$project VM(s) 
 ===================
 
 #for $vm in $vm_list.split(',') 
@@ -8,25 +8,23 @@ $project jails
 #end for
 
 
-Jails
-------
+Virtual machines
+-----------------
 
-jails list
+vm list
 +++++++++++++
 
 .. code-block:: bash
  
-  # jls 
+  # virsh list
   # complete me
 
-jails order
+vm boot order
 +++++++++++++
 
 .. code-block:: bash
  
-  # cd /usr/local/etc/ezjail
-  # ls | xargs rcorder
-
+    boot order here
  
 .. toctree::
    :maxdepth: 2

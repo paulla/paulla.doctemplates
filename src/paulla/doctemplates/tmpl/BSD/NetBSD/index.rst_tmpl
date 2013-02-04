@@ -118,6 +118,17 @@ ssh
 
 #end if
 
+#if $has_vm:
+
+Jails
+------
+
+.. toctree::
+   :maxdepth: 2
+   
+   jails/index.rst
+   
+#end if
 
 Crontab
 ----------
@@ -130,6 +141,12 @@ Crontab
 
 Backups
 ----------
+
+.. todo:: complete me
+
+
+Supervision
+------------
 
 .. todo:: complete me
 

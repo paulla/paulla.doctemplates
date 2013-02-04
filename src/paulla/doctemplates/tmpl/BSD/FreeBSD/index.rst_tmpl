@@ -117,7 +117,7 @@ ssh
 
 #end if
 
-#if $has_jails:
+#if $has_vm:
 
 Jails
 ------
@@ -140,6 +140,12 @@ Crontab
 
 Backups
 ----------
+
+.. todo:: complete me
+
+
+Supervision
+------------
 
 .. todo:: complete me
 

@@ -2,7 +2,6 @@
 $project
 ===================
 
-
 .. index:: 
 #if $group
     pair: $group; $project
@@ -18,6 +17,7 @@ $project
 
 
 $desc
+
 
 
 .. table:: $project
@@ -41,18 +41,6 @@ $desc
 
 Disque
 ---------
-
-Raid
-+++++++
-
-.. todo:: describe me!
-
-Partitionnement
-+++++++++++++++++
-
-.. code-block:: bash
- 
- cat /etc/fstab 
 
 .. code-block:: bash
  
@@ -84,9 +72,9 @@ interfaces
  
 + eth1 217.119.180.61
 
-**/etc/rc.conf.local**
+**/etc/rc.conf**
 
-.. literalinclude:: files/etc/rc.conf.local
+.. literalinclude:: files/etc/rc.conf
    :language: bash
 
 
@@ -116,7 +104,6 @@ ssh
    :language: bash                       
 
 #end if
-
 
 Crontab
 ----------

@@ -13,7 +13,12 @@ class HostBsdBaseTemplate(HostBaseTemplate):
 
 
 class HostLinuxBaseTemplate(HostBaseTemplate):
-    pass
+    def post(self, command, output_dir, vars):
+        HostBsdBaseTemplate.post(self, command, output_dir, vars)
+        if not vars['has_vm']:
+            path = os.path.join(output_dir, 'vms')
+            if os.path.exists(path):
+                rmtree(path)
 
 
 class HostDebianLikeBaseTemplate(HostLinuxBaseTemplate):
@@ -27,9 +32,7 @@ class FreeBsdTemplate(HostBsdBaseTemplate):
     summary = "A FreeBSD doc template."
 
     vars = HostBsdBaseTemplate.vars + \
-           [var('has_jails', 'This host runs jails',
-                default=defaults['has_jails']),
-            var('runs_sshd', 'runs sshd',
+           [var('runs_sshd', 'runs sshd',
                 default=defaults['runs_sshd']),
            ]
 
@@ -41,7 +44,7 @@ class FreeBsdTemplate(HostBsdBaseTemplate):
 
     def post(self, command, output_dir, vars):
         HostBsdBaseTemplate.post(self, command, output_dir, vars)
-        if not vars['has_jails']:
+        if not vars['has_vm']:
             path = os.path.join(output_dir, 'jails')
             if os.path.exists(path):
                 rmtree(path)

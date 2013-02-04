@@ -37,6 +37,10 @@ class HostBaseTemplate(Template):
             var('location', 'location', default=defaults['location']),
             var('ip4s', 'inet-ip1, inet-ip2, ...', default=""),
             var('ip6s', 'inet6-ip1, inet6-ip2, ...', default=""),
+            var('parent', 'parent, hosted on dom0 : parent name',
+                default=""),
+            var('vm_list', 'VM | jail list:"hostname1, hostname2 ..."',
+                default=''),
            ]
 
     def boolify(self, vars):
@@ -65,6 +69,7 @@ class HostBaseTemplate(Template):
             vars['location'] = self.defaults['location']
         self.boolify(vars)
         self.check_ip(vars)
+        vars['has_vm']= bool(vars['vm_list'])
 
     def post(self, command, output_dir, vars):
         if not vars['runs_sshd']:

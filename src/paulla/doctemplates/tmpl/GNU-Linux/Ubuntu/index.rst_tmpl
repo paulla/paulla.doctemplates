@@ -11,7 +11,6 @@ $project
     pair: $location; $project
 #end if
     pair: $os; $project
-
 .. image:: files/_static/logo.png
      :align: center
 
@@ -106,6 +105,20 @@ ssh
 
 #end if
 
+
+
+#if $has_vm:
+
+VM(s)
+------
+
+.. toctree::
+   :maxdepth: 2
+   
+   vms/index.rst
+   
+#end if
+
 Crontab
 ----------
 
@@ -117,6 +130,12 @@ Crontab
 
 Backups
 ----------
+
+.. todo:: complete me
+
+
+Supervision
+------------
 
 .. todo:: complete me
 
