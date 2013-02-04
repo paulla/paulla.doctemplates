@@ -11,6 +11,21 @@ DEFAULT_CONFIG_FILE = os.path.join(_dir, 'etc', 'defaults.cfg')
 BOOLEANS = ['False', 'True', '1', '0']
 
 
+idx_summary = """
+%s
+=========================
+
+Content:
+
+.. toctree::
+   :maxdepth: 2\n  \n"""
+
+
+def append_lines(filename, text):
+    with open(filename, 'a') as idx_file:
+        idx_file.writelines(text)
+
+
 def getdefaults(section, cfg=DEFAULT_CONFIG_FILE):
     """Get default values for template vars."""
     Config = ConfigParser.ConfigParser()
@@ -76,5 +91,12 @@ class HostBaseTemplate(Template):
             path = os.path.join(output_dir, 'files', 'etc', 'ssh')
             if os.path.exists(path):
                 rmtree(path)
+
+        txt = '   %s/index.rst\n' % vars['project']
+        if not os.path.exists(os.path.join(os.getcwd(), 'index.rst')):
+            direc = os.getcwd().split(os.sep)[-1]
+            txt = (idx_summary % direc)+ txt
+        append_lines(os.path.join(os.getcwd(), 'index.rst'), txt)
+
 
 # vim:set et sts=4 ts=4 tw=80:

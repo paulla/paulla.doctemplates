@@ -27,11 +27,11 @@ $desc
     :column-dividers: none single single
 
 #if $group
-    =========== ===========
-    $os         $group
-    =========== ===========
-    $os         $group
-    =========== ===========
+    ================ ===========
+    $os              $group
+    ================ ===========
+    $os              $group
+    ================ ===========
 #end if
 
 .. code-block:: bash
