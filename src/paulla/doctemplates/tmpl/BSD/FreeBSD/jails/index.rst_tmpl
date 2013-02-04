@@ -1,37 +1,28 @@
 #if $has_vm:
-===================
-$project jails
-===================
-
-#for $vm in $vm_list.split(',') 
-   :index:`$vm.strip() <pair: $vm.strip(); $project>`
-#end for
 
 
-Jails
-------
-
-jails list
-+++++++++++++
+jails
++++++++
 
 .. code-block:: bash
  
   # jls 
   # complete me
-
-jails order
-+++++++++++++
-
 .. code-block:: bash
  
   # cd /usr/local/etc/ezjail
   # ls | xargs rcorder
 
  
+#for $vm in $vm_list.split(',') 
+$vm.strip()
+=======================
+.. index:: 
+    pair: $vm.strip(); $project
+
 .. toctree::
    :maxdepth: 2
    
-#for $vm in $vm_list.split(',') 
    $vm.strip()/index.rst
 #end for
 

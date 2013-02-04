@@ -13,7 +13,7 @@ $project
     pair: $os; $project
 
 
-.. image:: files/_static/logo.png
+.. image:: files/_static/$os-logo.png
      :align: center
 
 

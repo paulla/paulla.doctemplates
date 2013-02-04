@@ -13,7 +13,7 @@ $project
     pair: $os; $project
 
 
-.. image:: files/_static/logo.png
+.. image:: files/_static/$os-logo.png
      :align: center
 
 
@@ -118,17 +118,6 @@ ssh
 
 #end if
 
-#if $has_vm:
-
-Jails
-------
-
-.. toctree::
-   :maxdepth: 2
-   
-   jails/index.rst
-   
-#end if
 
 Crontab
 ----------

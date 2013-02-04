@@ -50,6 +50,24 @@ class FreeBsdTemplate(HostBsdBaseTemplate):
                 rmtree(path)
 
 
+class FreeBsdJailTemplate(FreeBsdTemplate):
+    """."""
+    _template_dir = 'tmpl/BSD/FreeBSD-jail'
+    defaults = getdefaults('FreeBSD-jail')
+    summary = "A FreeBSD  Jail doc template."
+
+    vars = HostBsdBaseTemplate.vars + \
+           [var('runs_sshd', 'runs sshd',
+                default=defaults['runs_sshd']),
+           ]
+
+    def pre(self, command, output_dir, vars):
+        """."""
+        HostBsdBaseTemplate.pre(self, command, output_dir, vars)
+        if not 'os' in vars.keys():
+            vars['os'] = self.defaults['os']
+
+
 class DebianTemplate(HostDebianLikeBaseTemplate):
     """."""
     _template_dir = 'tmpl/GNU-Linux/Debian'
