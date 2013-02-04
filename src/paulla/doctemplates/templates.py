@@ -14,7 +14,6 @@ class HostBsdBaseTemplate(HostBaseTemplate):
 
 class HostLinuxBaseTemplate(HostBaseTemplate):
     def post(self, command, output_dir, vars):
-        HostBsdBaseTemplate.post(self, command, output_dir, vars)
         if not vars['has_vm']:
             path = os.path.join(output_dir, 'vms')
             if os.path.exists(path):
