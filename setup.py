@@ -1,18 +1,18 @@
 from setuptools import setup, find_packages
-import os, sys
+import os
 
 version = '0.1'
 
 here = os.path.abspath(os.path.dirname(__file__))
-tests_dir = os.path.join(here, 'src/paulla/doctemplates/tests/')
+tests_dir = os.path.join(here, 'src/paulla/doctemplates/tests/docs/')
 
 try:
         README = open(os.path.join(here, 'README.rst')).read()
-        TESTS = open(os.path.join(tests_dir, 'index.rst')).read()
+        TESTS = open(os.path.join(tests_dir, 'index.txt')).read()
         CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
         CONTRIBUTORS = open(os.path.join(here, 'CONTRIBUTORS.txt')).read()
 except IOError:
-        README = CHANGES = CONTRIBUTORS = TESTS =''
+        README = CHANGES = CONTRIBUTORS = TESTS = ''
 
 
 long_description = README + '\n\n' + TESTS + '\n\n' + CHANGES \
@@ -20,7 +20,6 @@ long_description = README + '\n\n' + TESTS + '\n\n' + CHANGES \
 
 
 tests_require = [
-    'unittest2',
     'Cheetah',
     'PasteScript',
     'IPy']
