@@ -1,0 +1,6 @@
+Changelog
+=========
+
+
+- Firts version used in production at http://www.paulla.asso.org
+  [Jean-Philippe Camguilhem]

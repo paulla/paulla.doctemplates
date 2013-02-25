@@ -1,0 +1,62 @@
+
+We provides 6 more templates to pastescript::
+
+    >>> paster('create --list-templates')
+    paster create --list-templates
+    Available templates:
+      basic_package:  A basic setuptools-enabled package
+      debian:         A Debian doc template.
+      freebsd:        A FreeBSD doc template.
+      freebsd-jail:   A FreeBSD  Jail doc template.
+      netbsd:         A NetBSD doc template.
+      openbsd:        A OpenBSD doc template.
+      paste_deploy:   A web application deployed through paste.deploy
+      ubuntu:         An Ubuntu doc template.
+
+
+Playing with debian template::
+
+    >>> paster('create -t debian cannelle --no-interactive')
+    paster create -t debian cannelle --no-interactive
+    Selected and implied templates:
+      paulla.doctemplates#debian  A Debian doc template.
+    <BLANKLINE>
+    Variables:
+      egg:      cannelle
+      package:  cannelle
+      project:  cannelle
+    Creating template debian
+    Creating directory ./cannelle
+      Recursing into files
+        Creating ./cannelle/files/
+        Recursing into _static
+          Creating ./cannelle/files/_static/
+          Copying debian-logo.png to ./cannelle/files/_static/debian-logo.png
+        Recursing into etc
+          Creating ./cannelle/files/etc/
+          Copying fstab to ./cannelle/files/etc/fstab
+          Copying hosts to ./cannelle/files/etc/hosts
+          Recursing into network
+            Creating ./cannelle/files/etc/network/
+            Copying interfaces to ./cannelle/files/etc/network/interfaces
+          Copying resolv.conf to ./cannelle/files/etc/resolv.conf
+          Recursing into ssh
+            Creating ./cannelle/files/etc/ssh/
+            Copying sshd_config to ./cannelle/files/etc/ssh/sshd_config
+          Copying sysctl.conf to ./cannelle/files/etc/sysctl.conf
+      Copying index.rst_tmpl to ./cannelle/index.rst
+      Recursing into vms
+        Creating ./cannelle/vms/
+        Copying index.rst_tmpl to ./cannelle/vms/index.rst
+
+    >>> ls('.')
+    cannelle
+    index.rst
+
+    >>> ls('.', 'cannelle')
+    files
+    index.rst
+
+    >>> ls('.', 'cannelle', 'files')
+    _static
+    etc

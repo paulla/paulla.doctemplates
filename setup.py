@@ -1,13 +1,34 @@
 from setuptools import setup, find_packages
-import os
+import os, sys
 
 version = '0.1'
+
+here = os.path.abspath(os.path.dirname(__file__))
+tests_dir = os.path.join(here, 'src/paulla/doctemplates/tests/')
+
+try:
+        README = open(os.path.join(here, 'README.rst')).read()
+        TESTS = open(os.path.join(tests_dir, 'index.rst')).read()
+        CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
+        CONTRIBUTORS = open(os.path.join(here, 'CONTRIBUTORS.txt')).read()
+except IOError:
+        README = CHANGES = CONTRIBUTORS = TESTS =''
+
+
+long_description = README + '\n\n' + TESTS + '\n\n' + CHANGES \
+                   + '\n\n'+ CONTRIBUTORS
+
+
+tests_require = [
+    'unittest2',
+    'Cheetah',
+    'PasteScript',
+    'IPy']
 
 setup(name='paulla.doctemplates',
       version=version,
       description="Documentation templates hosts PauLLA",
-      long_description=open("README.rst").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+      long_description=long_description,
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
@@ -25,6 +46,9 @@ setup(name='paulla.doctemplates',
       data_files = [('etc', ['src/paulla/doctemplates/etc/defaults.cfg'])],
       zip_safe=False,
       install_requires=['setuptools', 'PasteScript', 'Cheetah', 'IPy'],
+      tests_require = tests_require,
+      extras_require=dict(test=tests_require),
+      test_suite="paulla.doctemplates.tests",
       entry_points=""" # -*- Entry points: -*-
       [paste.paster_create_template]
 #      [console_scripts]
