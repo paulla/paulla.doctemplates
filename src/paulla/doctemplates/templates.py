@@ -147,10 +147,12 @@ class OpenBsdTemplate(HostBsdBaseTemplate):
             rc_conf_file = os.path.join(output_dir, 'files/etc/rc.conf')
             if os.path.exists(rc_conf_file):
                 os.remove(rc_conf_file)
-            copy(os.path.join(os.path.dirname(__file__),
-                             'tmpl/base/bsd_etc_base/openbsd_etc/rc.conf.local'),
-                 os.path.join(output_dir, 'files/etc/rc.conf.local'))
+#            copy(os.path.join(os.path.dirname(__file__),
+#                             'tmpl/base/bsd_etc_base/openbsd_etc/rc.conf.local'),
+#                 os.path.join(output_dir, 'files/etc/rc.conf.local'))
 
+            copy_tree(os.path.join(os.path.dirname(__file__), 'tmpl/base/bsd_etc_base/openbsd_etc/'),
+                      os.path.join(output_dir, 'files/etc'))
 
 class NetBsdTemplate(HostBsdBaseTemplate):
     """."""
