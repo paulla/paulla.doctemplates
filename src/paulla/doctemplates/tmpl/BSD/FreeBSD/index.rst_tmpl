@@ -62,6 +62,9 @@ Partitionnement
 Network
 ----------
 
+interfaces
+++++++++++++
+
 #if $ip4s
     #for $ip in $ip4s
     :index:`$ip <pair: $ip; $project>`
@@ -75,14 +78,6 @@ Network
     #end for
 #end if
 
-interfaces
-++++++++++++
-
-+ **eth0 217.119.180.86**
- 
- + eth0:1 217.119.180.147
- 
-+ eth1 217.119.180.61
 
 **/etc/rc.conf**
 

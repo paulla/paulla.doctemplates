@@ -8,6 +8,7 @@ jails
  
   # jls 
   # complete me
+
 .. code-block:: bash
  
   # cd /usr/local/etc/ezjail

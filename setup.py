@@ -18,6 +18,13 @@ except IOError:
 long_description = README + '\n\n' + TESTS + '\n\n' + CHANGES \
                    + '\n\n'+ CONTRIBUTORS
 
+install_requires=[
+    'setuptools',
+    'PasteScript',
+    'Cheetah',
+    'IPy',
+    'iniparse'
+    ]
 
 tests_require = [
     'Cheetah',
@@ -44,7 +51,7 @@ setup(name='paulla.doctemplates',
       include_package_data=True,
       data_files = [('etc', ['src/paulla/doctemplates/etc/defaults.cfg'])],
       zip_safe=False,
-      install_requires=['setuptools', 'PasteScript', 'Cheetah', 'IPy'],
+      install_requires=install_requires,
       tests_require = tests_require,
       extras_require=dict(test=tests_require),
       test_suite="paulla.doctemplates.tests",

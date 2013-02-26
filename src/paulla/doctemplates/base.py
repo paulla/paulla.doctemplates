@@ -3,6 +3,7 @@
 import ConfigParser
 import os.path
 from shutil import rmtree
+from distutils.dir_util import copy_tree
 from paste.script.templates import Template, var
 from IPy import IP
 
@@ -19,6 +20,20 @@ Content:
 
 .. toctree::
    :maxdepth: 2\n  \n"""
+
+
+
+versioned_conf_cfg_tmpl = """
+[buildout]
+extensions =
+    mr.developer
+
+auto-checkout =
+
+
+[sources]
+
+"""
 
 
 def append_lines(filename, text):
@@ -43,17 +58,17 @@ def getdefaults(section, cfg=DEFAULT_CONFIG_FILE):
 class HostBaseTemplate(Template):
     """Base template."""
     use_cheetah = True
-    defaults = getdefaults('General')
+    gen_defaults = getdefaults('General')
 
     vars = Template.vars + \
            [var('desc', 'Host description', default=''),
-            var('domain', 'Domaine', default=defaults['domain']),
-            var('group', 'group', default=defaults['group']),
-            var('location', 'location', default=defaults['location']),
+            var('domain', 'Domaine', default=gen_defaults['domain']),
+            var('group', 'group', default=gen_defaults['group']),
+            var('location', 'location', default=gen_defaults['location']),
             var('ip4s', 'inet-ip1, inet-ip2, ...', default=""),
             var('ip6s', 'inet6-ip1, inet6-ip2, ...', default=""),
             var('parent', 'parent, hosted on dom0 : parent name',
-                default=""),
+                default=''),
             var('vm_list', 'VM | jail list:"hostname1, hostname2 ..."',
                 default=''),
            ]
@@ -79,9 +94,18 @@ class HostBaseTemplate(Template):
     def pre(self, command, output_dir, vars):
         """."""
         if not 'group' in vars.keys():
-            vars['group'] = self.defaults['group']
+            vars['group'] = self.gen_defaults['group']
         if not 'location' in vars.keys():
-            vars['location'] = self.defaults['location']
+            vars['location'] = self.gen_defaults['location']
+        if not 'versioned_conf_cfg_file' in vars.keys():
+            vars['versioned_conf_cfg_file'] = self.gen_defaults['versioned_conf_cfg_file']
+        if not 'conf_is_versioned' in vars.keys():
+            vars['conf_is_versioned'] = self.gen_defaults['conf_is_versioned']
+        if not 'default_dcvs_url' in vars.keys():
+            vars['default_dcvs_url'] = self.gen_defaults['default_dcvs_url']
+        if not 'default_dcvs' in vars.keys():
+            vars['default_dcvs'] = self.gen_defaults['default_dcvs']
+
         self.boolify(vars)
         self.check_ip(vars)
         vars['has_vm']= bool(vars['vm_list'])
@@ -97,6 +121,16 @@ class HostBaseTemplate(Template):
             direc = os.getcwd().split(os.sep)[-1]
             txt = (idx_summary % direc)+ txt
         append_lines(os.path.join(os.getcwd(), 'index.rst'), txt)
+
+        if not vars['conf_is_versioned']:
+            copy_tree(os.path.join(os.path.dirname(__file__), 'tmpl/base/common_base/etc'),
+                      os.path.join(output_dir, 'files/etc'))
+
+        else:
+            versioned_conf_cfg_file = os.path.join(os.getcwd(),
+            vars['versioned_conf_cfg_file'])
+            if not os.path.exists(versioned_conf_cfg_file):
+                append_lines(versioned_conf_cfg_file, versioned_conf_cfg_tmpl)
 
 
 # vim:set et sts=4 ts=4 tw=80:

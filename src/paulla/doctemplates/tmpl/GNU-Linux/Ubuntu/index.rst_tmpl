@@ -37,7 +37,6 @@ $desc
  uname -a
 
  cat /etc/debian_version 
- 5.0.5
 
 
 Disque
@@ -56,6 +55,9 @@ Partitionnement
 Network
 ----------
 
+interfaces
+++++++++++++
+
 #if $ip4s
     #for $ip in $ip4s
     :index:`$ip <pair: $ip; $project>`
@@ -68,9 +70,6 @@ Network
 
     #end for
 #end if
-
-interfaces
-++++++++++++
 
 **/etc/network/interfaces**
 

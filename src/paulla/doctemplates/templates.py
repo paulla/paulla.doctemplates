@@ -1,7 +1,8 @@
 #/usr/bin/env/python
 
 import os
-from shutil import rmtree
+from shutil import rmtree, copy
+from distutils.dir_util import copy_tree
 
 from paste.script.templates import var
 from base import HostBaseTemplate, getdefaults
@@ -9,8 +10,11 @@ from base import HostBaseTemplate, getdefaults
 
 
 class HostBsdBaseTemplate(HostBaseTemplate):
-    pass
-
+    def post(self, command, output_dir, vars):
+        HostBaseTemplate.post(self, command, output_dir, vars)
+        if not vars['conf_is_versioned']:
+            copy_tree(os.path.join(os.path.dirname(__file__), 'tmpl/base/bsd_etc_base/etc'),
+                      os.path.join(output_dir, 'files/etc'))
 
 class HostLinuxBaseTemplate(HostBaseTemplate):
     def post(self, command, output_dir, vars):
@@ -22,7 +26,11 @@ class HostLinuxBaseTemplate(HostBaseTemplate):
 
 
 class HostDebianLikeBaseTemplate(HostLinuxBaseTemplate):
-    pass
+    def post(self, command, output_dir, vars):
+        HostLinuxBaseTemplate.post(self, command, output_dir, vars)
+        if not vars['conf_is_versioned']:
+            copy_tree(os.path.join(os.path.dirname(__file__), 'tmpl/base/gnu-linux-debian-base/etc'),
+                      os.path.join(output_dir, 'files/etc'))
 
 
 class FreeBsdTemplate(HostBsdBaseTemplate):
@@ -48,6 +56,18 @@ class FreeBsdTemplate(HostBsdBaseTemplate):
             path = os.path.join(output_dir, 'jails')
             if os.path.exists(path):
                 rmtree(path)
+        if not vars['conf_is_versioned']:
+            usr_local_path = os.path.join(output_dir, 'files/usr/local/etc/')
+            if not os.path.exists(usr_local_path):
+                os.makedirs(usr_local_path)
+            fstab_file = os.path.join(output_dir, 'files/etc/fstab')
+            if os.path.exists(fstab_file):
+                os.remove(fstab_file)
+        if not vars['runs_sshd']:
+            path = os.path.join(output_dir, 'files', 'etc', 'ssh')
+            if os.path.exists(path):
+                rmtree(path)
+
 
 
 class FreeBsdJailTemplate(FreeBsdTemplate):
@@ -120,6 +140,16 @@ class OpenBsdTemplate(HostBsdBaseTemplate):
         HostBsdBaseTemplate.pre(self, command, output_dir, vars)
         if not 'os' in vars.keys():
             vars['os'] = self.defaults['os']
+
+    def post(self, command, output_dir, vars):
+        HostBsdBaseTemplate.post(self, command, output_dir, vars)
+        if not vars['conf_is_versioned']:
+            rc_conf_file = os.path.join(output_dir, 'files/etc/rc.conf')
+            if os.path.exists(rc_conf_file):
+                os.remove(rc_conf_file)
+            copy(os.path.join(os.path.dirname(__file__),
+                             'tmpl/base/bsd_etc_base/openbsd_etc/rc.conf.local'),
+                 os.path.join(output_dir, 'files/etc/rc.conf.local'))
 
 
 class NetBsdTemplate(HostBsdBaseTemplate):
