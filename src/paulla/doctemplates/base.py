@@ -120,7 +120,8 @@ class HostBaseTemplate(Template):
         if not os.path.exists(os.path.join(os.getcwd(), 'index.rst')):
             direc = os.getcwd().split(os.sep)[-1]
             txt = (idx_summary % direc)+ txt
-        append_lines(os.path.join(os.getcwd(), 'index.rst'), txt)
+        if not vars['parent']:
+            append_lines(os.path.join(os.getcwd(), 'index.rst'), txt)
 
         if not vars['conf_is_versioned']:
             copy_tree(os.path.join(os.path.dirname(__file__), 'tmpl/base/common_base/etc'),
